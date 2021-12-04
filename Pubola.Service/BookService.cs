@@ -74,26 +74,7 @@ namespace Pubola.Services
                         Isbn = entity.Isbn,
                         CountryCode = entity.CountryCode,
                         ReadingLevel = entity.ReadingLevel,
-                    };
-            }
-        }
-        public BookDetail GetBookbyAuthor(string author)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity =
-                    ctx
-                        .Books
-                        .Single(e => e.Author == author && e.UserId == _userId);
-                return
-                    new BookDetail
-                    {
-                        Id = entity.Id,
-                        Title = entity.Title,
-                        Author = entity.Author,
-                        Isbn = entity.Isbn,
-                        CountryCode = entity.CountryCode,
-                        ReadingLevel = entity.ReadingLevel,
+                        GenreId = entity.GenreId,
                     };
             }
         }
@@ -104,7 +85,7 @@ namespace Pubola.Services
                 var entity =
                     ctx
                         .Books
-                        .Single(e => e.Title == title && e.UserId == _userId);
+                        .Single(e => e.Title.Contains(title) && e.UserId == _userId);
                 return
                     new BookDetail
                     {
@@ -118,7 +99,111 @@ namespace Pubola.Services
                     };
             }
         }
-        public BookDetail GetBookbyGenreId(int genreId)
+        public BookDetail GetBookbyAuthor(string author)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Books
+                        .Single(e => e.Author.Contains(author) && e.UserId == _userId);
+                return
+                    new BookDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        CountryCode = entity.CountryCode,
+                        ReadingLevel = entity.ReadingLevel,
+                    };
+            }
+        }
+        public BookDetail GetBookbyIsbn(long isbn)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Books
+                        .Single(e => e.Isbn == isbn && e.UserId == _userId);
+                return
+                    new BookDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        CountryCode = entity.CountryCode,
+                        ReadingLevel = entity.ReadingLevel,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public BookDetail GetBookbyCountryCode(int countryCode)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Books
+                        .Single(e => e.CountryCode == countryCode && e.UserId == _userId);
+                return
+                    new BookDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        CountryCode = entity.CountryCode,
+                        ReadingLevel = entity.ReadingLevel,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public BookDetail GetBookbyReadingLevel(int readingLevel)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Books
+                        .Single(e => e.ReadingLevel == readingLevel && e.UserId == _userId);
+                return
+                    new BookDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        CountryCode = entity.CountryCode,
+                        ReadingLevel = entity.ReadingLevel,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public BookDetail GetBookbyGenre(int genreId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Books
+                        .Single(e => e.GenreId == genreId && e.UserId == _userId);
+                return
+                    new BookDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        CountryCode = entity.CountryCode,
+                        ReadingLevel = entity.ReadingLevel,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+            public BookDetail GetBookbyGenreId(int genreId)
         {
             using (var ctx = new ApplicationDbContext())
             {

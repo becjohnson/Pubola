@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace Pubola.Model.Book
         public long Isbn { get; set; }
         public int CountryCode { get; set; }
         public int ReadingLevel { get; set; }
+        public int GenreId { get; set; }
     }
 }

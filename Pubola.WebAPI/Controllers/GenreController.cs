@@ -13,12 +13,13 @@ namespace Pubola.WebAPI.Controllers.GenreController
     [Authorize]
     public class GenreController : ApiController
     {
-        public IHttpActionResult Get()
+        private GenreService CreateGenreService()
         {
-            GenreService genreService = CreateGenreService();
-            var genres = genreService.GetGenres();
-            return Ok(genres);
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var genreService = new GenreService(userId);
+            return genreService;
         }
+        [Route("api/Genre/Create")]
         public IHttpActionResult Post(GenreCreate genre)
         {
             if (!ModelState.IsValid)
@@ -32,18 +33,29 @@ namespace Pubola.WebAPI.Controllers.GenreController
             }
             return Ok("Genre was added!");
         }
-        private GenreService CreateGenreService()
+        [Route("api/Genre/GetAll")]
+        public IHttpActionResult Get()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var genreService = new GenreService(userId);
-            return genreService;
+            GenreService genreService = CreateGenreService();
+            var genres = genreService.GetGenres();
+            return Ok(genres);
         }
+        [Route("api/Genre/GetById")]
         public IHttpActionResult Get(int id)
         {
             GenreService genreService = CreateGenreService();
             var genre = genreService.GetGenrebyId(id);
             return Ok(genre);
         }
+        [Route("api/Genre/GetByName")]
+        public IHttpActionResult Get(string name)
+        {
+            GenreService genreService = CreateGenreService();
+            var genre = genreService.GetGenrebyName(name);
+            return Ok(genre);
+        }
+
+        [Route("api/Genre/Update")]
         public IHttpActionResult Put(GenreEdit genre)
         {
             if (!ModelState.IsValid)
@@ -57,6 +69,7 @@ namespace Pubola.WebAPI.Controllers.GenreController
             }
             return Ok("Genre was updated!");
         }
+        [Route("api/Genre/Delete{id}")]
         public IHttpActionResult Delete(int id)
         {
             var service = CreateGenreService();

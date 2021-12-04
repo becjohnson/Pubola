@@ -27,6 +27,7 @@ namespace Pubola.Services
                     Author = model.Author,
                     Isbn = (int)model.Isbn,
                     Edition = model.Edition,
+                    GenreId = model.GenreId,
 
                 };
             using (var ctx = new ApplicationDbContext())
@@ -71,6 +72,107 @@ namespace Pubola.Services
                         Author = entity.Author,
                         Isbn = entity.Isbn,
                         Edition = entity.Edition,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public GraphicNovelDetail GetGraphicNovelbyTitle(string title)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .GraphicNovels
+                        .Single(e => e.Title.Contains(title) && e.UserId == _userId);
+                return
+                    new GraphicNovelDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        Edition = entity.Edition,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public GraphicNovelDetail GetGraphicNovelbyAuthor(string author)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .GraphicNovels
+                        .Single(e => e.Author.Contains(author) && e.UserId == _userId);
+                return
+                    new GraphicNovelDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        Edition = entity.Edition,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public GraphicNovelDetail GetGraphicNovelbyIsbn(long isbn)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .GraphicNovels
+                        .Single(e => e.Isbn == isbn && e.UserId == _userId);
+                return
+                    new GraphicNovelDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        Edition = entity.Edition,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public GraphicNovelDetail GetGraphicNovelbyEdition(int edition)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .GraphicNovels
+                        .Single(e => e.Edition == edition && e.UserId == _userId);
+                return
+                    new GraphicNovelDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        Edition = entity.Edition,
+                        GenreId = entity.GenreId
+                    };
+            }
+        }
+        public GraphicNovelDetail GetGraphicNovelbyGenre(int genreId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .GraphicNovels
+                        .Single(e => e.GenreId == genreId && e.UserId == _userId);
+                return
+                    new GraphicNovelDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Author = entity.Author,
+                        Isbn = entity.Isbn,
+                        Edition = entity.Edition,
+                        GenreId = entity.GenreId
                     };
             }
         }

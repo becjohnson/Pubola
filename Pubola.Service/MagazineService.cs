@@ -80,7 +80,64 @@ namespace Pubola.Services
                 var entity =
                     ctx
                         .Magazines
-                        .Single(e => e.Title == title && e.UserId == _userId);
+                        .Single(e => e.Title.Contains(title) && e.UserId == _userId);
+                return
+                    new MagazineDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Volume = entity.Volume,
+                        IssueDate = entity.IssueDate,
+                        GenreId = entity.GenreId,
+                    };
+            }
+        }
+        public MagazineDetail GetMagazinebyVolume(int volume)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Magazines
+                        .Single(e => e.Volume == volume && e.UserId == _userId);
+                return
+                    new MagazineDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Volume = entity.Volume,
+                        IssueDate = entity.IssueDate,
+                        GenreId = entity.GenreId,
+                    };
+            }
+        }
+        public MagazineDetail GetMagazinebyIssue(DateTime issue)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Magazines
+                        .Single(e => e.IssueDate == issue && e.UserId == _userId);
+                return
+                    new MagazineDetail
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Volume = entity.Volume,
+                        IssueDate = entity.IssueDate,
+                        GenreId = entity.GenreId,
+                    };
+            }
+        }
+        public MagazineDetail GetMagazinebyGenre(int genreId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Magazines
+                        .Single(e => e.GenreId == genreId && e.UserId == _userId);
                 return
                     new MagazineDetail
                     {

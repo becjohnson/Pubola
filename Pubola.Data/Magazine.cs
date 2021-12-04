@@ -19,6 +19,7 @@ namespace Pubola.Data
         [Required]
         public int Volume { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{yyyy-MM-dd}")]
         public DateTime IssueDate { get; set; }
         [Required]
         public int GenreId { get; set; }

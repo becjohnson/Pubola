@@ -65,7 +65,23 @@ namespace Pubola.Services
                     };
             }
         }
-        public bool UpdateGenres(GenreEdit model)
+        public GenreDetail GetGenrebyName(string name)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Genres
+                        .Single(e => e.Name.Contains(name) && e.UserId == _userId);
+                return
+                    new GenreDetail
+                    {
+                        GenreId = entity.GenreId,
+                        Name = entity.Name,
+                    };
+            }
+        }
+            public bool UpdateGenres(GenreEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
